@@ -56,13 +56,18 @@
           'Time elapsed: ' + $store.timeElapsed
         "></p>
 
-        <p x-text="'Over time: ' + $store.tulora"></p>
+        <div>
+          <p x-show="$store.tulora < 0" x-text="'Over time: ' + $store.tulora + ' H'" style="color: #ff0000;"></p>
+          <p x-show="$store.tulora > 0" x-text="'Over time: ' + $store.tulora + ' H'" style="color: #00ca00;"></p>
+          <p x-show="$store.tulora === 0" x-text="'Over time: ' + $store.tulora + ' H'" style="color: inherit;"></p>
+        </div>
 
         <template x-for="shift in (shifts ? displayCards() : [{id: 0, type: 'null', time: 000000}])">
-          <li style="padding: 10px; display: block; width: 100%; margin-top: 10px; border-radius: 5px; text-align: center; background-color: #c23b22; position: relative;">
+          <li style="padding: 10px; display: block; width: 100%; margin-top: 10px; border-radius: 5px; text-align: left; background-color: #c23b22; position: relative;">
 
-            <input type="text" x-data="{cardData: shift[0].type.toUpperCase() + ': ' + shift[0].time, id: shift[0].id}" x-model = "cardData" x-on:change="changeDateTime(cardData, id)" style="display: block; background-color: inherit; border: none; font-size: inherit; font-family: inherit; color: inherit; font-weight: inherit; width: 80%;">
-            <p x-show="shift.length > 1" style="display: block;" x-text="shift[1]?.type.toUpperCase() + ': ' + shift[1]?.time" contenteditable></p>
+            <input type="text" x-model = "shift[2].cardData1" x-on:change="changeDateTime(shift[2].cardData1, shift[2].id1)" style="display: block; background-color: inherit; border: none; font-size: inherit; font-family: inherit; color: inherit; font-weight: inherit; width: 100%; text-align: center;">
+            <input x-show="shift[2].id2 !== null" type="text" x-model = "shift[2].cardData2" x-on:change="changeDateTime(shift[2].cardData2, shift[2].id2)" style="display: block; background-color: inherit; border: none; font-size: inherit; font-family: inherit; color: inherit; font-weight: inherit; width: 100%; text-align: center;">
+            <!-- <p x-show="shift.length > 1" style="display: block;" x-text="shift[1]?.type.toUpperCase() + ': ' + shift[1]?.time" contenteditable></p> -->
 
             <button style = "font-size: clamp(1.5rem, 2vw, 3rem); display: inline-block; margin-top: 1vh; padding: 10px; background-color: #ca0000; border-radius: 5px; border: none; color: white; position: absolute; bottom: 1vh; right: 1vw;" x-on:click="deleteCard(shift.map(e => e.id))">DELETE</button>
 

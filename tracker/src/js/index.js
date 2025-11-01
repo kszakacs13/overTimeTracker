@@ -211,6 +211,7 @@ document.addEventListener("alpine:init", () => {
 
         displayCards () {
             let finalDeck = [];
+
             for(let i = 0; i < this.shifts.length; i += 2) {
 
                 let card = [];
@@ -219,15 +220,25 @@ document.addEventListener("alpine:init", () => {
                     card = [
                         {...this.shifts[i], time: datetimeFromObj(new Date(this.shifts[i].time))},
                         {...this.shifts[i + 1], time: datetimeFromObj(new Date(this.shifts[i + 1].time))},
+                        {
+                            cardData1: this.shifts[i].type.toUpperCase() + ': ' + datetimeFromObj(new Date(this.shifts[i].time)), id1: this.shifts[i].id,
+                            cardData2: this.shifts[i + 1].type.toUpperCase() + ': ' + datetimeFromObj(new Date(this.shifts[i + 1].time)), id2: this.shifts[i + 1].id,
+                        }
                     ];
                 }else{
                     card = [
                         {...this.shifts[i], time: datetimeFromObj(new Date(this.shifts[i].time))},
+                        {},
+                        {
+                            cardData1: this.shifts[i].type.toUpperCase() + ': ' + datetimeFromObj(new Date(this.shifts[i].time)), id1: this.shifts[i].id,
+                            cardData2: "", id2: null,
+                        }
                     ];
                 }
 
                 finalDeck.push(card);
             }
+            
             return finalDeck.reverse();
         },
 
