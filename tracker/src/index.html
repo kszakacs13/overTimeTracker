@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Overtime Tracker</title>
+
+    <script type="module">
+    </script>
+    <script type="module" src="./js/index.js"></script>
+    
+    <script defer src="./js/cdn.min.js.js"></script>
+    
+    
+    <meta
+      name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+
+    <script
+      type="module"
+      src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/@ionic/pwa-elements@latest/dist/ionicpwaelements/ionicpwaelements.js"
+    ></script>
+
+    <link rel="icon" type="image/x-icon" href="./assets/icon/favicon.ico" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <meta name="theme-color" content="#31d53d" />
+  </head>
+  <body style="background-color: #972e1a; color: #ec9f91; font-weight: bold; font-family: 'Courier New', Courier, monospace;">
+    
+      <div x-data="cards" style = "width: 90vw; margin-left: 5vw; font-size: clamp(2rem, 2vw, 6rem); margin-top: 5vh; text-align: center;">
+        <div style="display: flex; justify-content: space-between; flex-direction: row; align-content: stretch;">
+        
+
+        <div style="width: 60vw; display: flex;">
+          <button x-show="shifts.length == 0 || (shifts.length > 0 && shifts[shifts.length - 1].type == 'end')" @click="addTime()" x-text="'START'" style = "font-size: inherit; display: inline-block; width: 100%; margin-top: 1vh; padding: 20px; background-color: #00ca00; border-radius: 5px; border: none; color: white;"></button>
+          <button x-show="shifts.length > 0 && shifts[shifts.length - 1].type == 'start'"  @click="addTime()" x-text="'END'" style = "font-size: inherit; display: inline-block; width: 100%; margin-top: 1vh; padding: 20px; background-color: #ca0000; border-radius: 5px; border: none; color: white;"></button>
+          <!--<button class="startBtn" @click="addTime()" x-text="shifts.length > 0 ? shifts[shifts.length - 1].type == 'end' ? 'START' : 'END' : 'START'" style = "font-size: large; display: block; width: 100%; margin-top: 1vh; padding: 20px;"></button>-->
+        </div>
+
+        <div style="width: 25vw; display: flex;">
+          <input type="text" x-model="$store.shiftLength" x-text="$store.shiftLength" x-on:change="$store.changeShiftIntervall.changeShiftIntervall($store.shiftLength)"
+            style = "font-size: inherit; display: inline-block; width: 100%; padding: 20px; border-radius: 5px; border: none; background-color: #c23b22; color: #ec9f91; font-weight: bolder;">
+        </div>
+
+
+        </div>
+        
+        <p x-text="
+          'Time elapsed: ' + $store.timeElapsed
+        "></p>
+
+        <p x-text="'Over time: ' + $store.tulora"></p>
+
+        <template x-for="shift in (shifts ? displayCards() : [{id: 0, type: 'null', time: 000000}])">
+          <li style="padding: 10px; display: block; width: 100%; margin-top: 10px; border-radius: 5px; text-align: center; background-color: #c23b22; position: relative;">
+
+            <input type="text" x-data="{cardData: shift[0].type.toUpperCase() + ': ' + shift[0].time, id: shift[0].id}" x-model = "cardData" x-on:change="changeDateTime(cardData, id)" style="display: block; background-color: inherit; border: none; font-size: inherit; font-family: inherit; color: inherit; font-weight: inherit; width: 80%;">
+            <p x-show="shift.length > 1" style="display: block;" x-text="shift[1]?.type.toUpperCase() + ': ' + shift[1]?.time" contenteditable></p>
+
+            <button style = "font-size: clamp(1.5rem, 2vw, 3rem); display: inline-block; margin-top: 1vh; padding: 10px; background-color: #ca0000; border-radius: 5px; border: none; color: white; position: absolute; bottom: 1vh; right: 1vw;" x-on:click="deleteCard(shift.map(e => e.id))">DELETE</button>
+
+          </li>
+        </template>
+
+        
+      </div>
+
+  </body>
+</html>
