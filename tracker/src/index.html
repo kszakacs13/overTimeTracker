@@ -34,7 +34,7 @@
   </head>
   <body style="background-color: #972e1a; color: #ec9f91; font-weight: bold; font-family: 'Courier New', Courier, monospace;">
     
-      <div x-data="cards" style = "width: 90vw; margin-left: 5vw; font-size: clamp(2rem, 2vw, 6rem); margin-top: 5vh; text-align: center;">
+      <div x-data="cards" style = "width: 88vw; margin-left: 3vw; font-size: clamp(2rem, 2vw, 6rem); margin-top: 5vh; text-align: center;">
         <div style="display: flex; justify-content: space-between; flex-direction: row; align-content: stretch;">
         
 
@@ -57,19 +57,19 @@
         "></p>
 
         <div>
-          <p x-show="$store.tulora < 0" x-text="'Over time: ' + $store.tulora + ' H'" style="color: #ff0000;"></p>
-          <p x-show="$store.tulora > 0" x-text="'Over time: ' + $store.tulora + ' H'" style="color: #00ca00;"></p>
-          <p x-show="$store.tulora === 0" x-text="'Over time: ' + $store.tulora + ' H'" style="color: inherit;"></p>
+          <p x-show="$store.tulora < 0" x-text="'Over time: ' + $store.tulora + ' H'" style="color: #ff0000; font-size: clamp(1.5rem, 2vw, 4rem);"></p>
+          <p x-show="$store.tulora > 0" x-text="'Over time: ' + $store.tulora + ' H'" style="color: #00ca00; font-size: clamp(1.5rem, 2vw, 4rem);"></p>
+          <p x-show="$store.tulora === 0" x-text="'Over time: ' + $store.tulora + ' H'" style="color: inherit; font-size: clamp(1.5rem, 2vw, 4rem);"></p>
         </div>
 
         <template x-for="shift in (shifts ? displayCards() : [{id: 0, type: 'null', time: 000000}])">
-          <li style="padding: 10px; display: block; width: 100%; margin-top: 10px; border-radius: 5px; text-align: left; background-color: #c23b22; position: relative;">
+          <li style="padding: 10px; display: block; width: 100%; margin-top: 10px; border-radius: 5px; text-align: left; background-color: #c23b22; position: relative; font-size: clamp(1rem, 2vw, 2rem);">
 
             <input type="text" x-model = "shift[2].cardData1" x-on:change="changeDateTime(shift[2].cardData1, shift[2].id1)" style="display: block; background-color: inherit; border: none; font-size: inherit; font-family: inherit; color: inherit; font-weight: inherit; width: 100%; text-align: center;">
             <input x-show="shift[2].id2 !== null" type="text" x-model = "shift[2].cardData2" x-on:change="changeDateTime(shift[2].cardData2, shift[2].id2)" style="display: block; background-color: inherit; border: none; font-size: inherit; font-family: inherit; color: inherit; font-weight: inherit; width: 100%; text-align: center;">
             <!-- <p x-show="shift.length > 1" style="display: block;" x-text="shift[1]?.type.toUpperCase() + ': ' + shift[1]?.time" contenteditable></p> -->
 
-            <button style = "font-size: clamp(1.5rem, 2vw, 3rem); display: inline-block; margin-top: 1vh; padding: 10px; background-color: #ca0000; border-radius: 5px; border: none; color: white; position: absolute; bottom: 1vh; right: 1vw;" x-on:click="deleteCard(shift.map(e => e.id))">DELETE</button>
+            <button style = "font-size: 1rem; display: inline-block; margin-top: 1vh; padding: 5px; background-color: #ca0000; border-radius: 5px; border: none; color: white;" x-on:click="deleteCard(shift.map(e => e.id))">DELETE</button>
 
           </li>
         </template>

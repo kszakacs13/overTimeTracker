@@ -71,9 +71,16 @@ async function loadData(name = "noname") {
 async function getCards () {
     try {
         const data = await loadData("cards");
+
+        if (data !== null && data !== undefined) {
+            return {shifts: data};
+          }else{
+            return {shifts: [{id: 0, type: 'start', time: 0}, {id: 0, type: 'end', time: 0}]};
+          }
+
         return {shifts: data};
     }catch{
-        return {shifts: []};
+        return {shifts: [{id: 0, type: 'start', time: 0}, {id: 0, type: 'end', time: 0}]};
     }
 };
 
