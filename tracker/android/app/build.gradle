@@ -22,7 +22,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    signingConfigs {
+        release {
+            keyAlias "my-key-alias"
+            keyPassword "alma1234"
+            storeFile file("/home/kristof/Android/my-release-key.jks")
+            storePassword "alma1234"
+
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
 }
+
 
 repositories {
     flatDir{
